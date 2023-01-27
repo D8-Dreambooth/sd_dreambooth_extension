@@ -199,11 +199,10 @@ def main(args: DreamboothConfig, use_txt2img: bool = True) -> TrainResult:
 
         enable_safe_unpickle()
         if args.attention == "xformers" and not shared.force_cpu:
-            xattention.replace_unet_cross_attn_to_xformers()
-            xattention.set_diffusers_xformers_flag(unet, True)
-            xattention.set_diffusers_xformers_flag(vae, True)
-            xattention.set_diffusers_xformers_flag(text_encoder, True)
+            from xformers.ops import MemoryEfficientAttentionFlashAttentionOp
+            unet.enable_xformers_memory_efficient_attention(attention_op=MemoryEfficientAttentionFlashAttentionOp)
         elif args.attention == "flash_attention":
+            unet.enable_xformers_memory_efficient_attention(attention_op=forward_flash_attn)
             xattention.replace_unet_cross_attn_to_flash_attention()
         else:
             xattention.replace_unet_cross_attn_to_default()
