@@ -202,7 +202,7 @@ def main(args: DreamboothConfig, use_txt2img: bool = True) -> TrainResult:
             from xformers.ops import MemoryEfficientAttentionFlashAttentionOp
             unet.enable_xformers_memory_efficient_attention(attention_op=MemoryEfficientAttentionFlashAttentionOp)
         elif args.attention == "flash_attention":
-            unet.enable_xformers_memory_efficient_attention(attention_op=forward_flash_attn)
+            #unet.enable_xformers_memory_efficient_attention(attention_op=forward_flash_attn)
             xattention.replace_unet_cross_attn_to_flash_attention()
         else:
             xattention.replace_unet_cross_attn_to_default()

@@ -539,18 +539,6 @@ def dreambooth_api(_: gr.Blocks, app: FastAPI):
 
     @app.get("/dreambooth/samples")
     #
-    # db_model_name,
-    # db_sample_prompt,
-    # db_sample_prompt_file,
-    # db_sample_negative,
-    # db_sample_width,
-    # db_sample_height,
-    # db_num_samples,
-    # db_sample_batch_size,
-    # db_sample_seed,
-    # db_sample_steps,
-    # db_sample_scale,
-    # db_sample_txt2img
     async def api_generate_samples(
             model_name: str = Query(description="The model name to use for generating samples."),
             sample_prompt: str = Query("", description="The prompt to use to generate sample images."),
